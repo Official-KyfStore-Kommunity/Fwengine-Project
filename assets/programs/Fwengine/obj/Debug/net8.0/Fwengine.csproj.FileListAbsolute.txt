@@ -1,0 +1,11 @@
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\bin\Debug\net8.0\Fwengine.deps.json
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\bin\Debug\net8.0\Fwengine.dll
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\bin\Debug\net8.0\Fwengine.pdb
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\obj\Debug\net8.0\Fwengine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\obj\Debug\net8.0\Fwengine.AssemblyInfoInputs.cache
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\obj\Debug\net8.0\Fwengine.AssemblyInfo.cs
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\obj\Debug\net8.0\Fwengine.csproj.CoreCompileInputs.cache
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\obj\Debug\net8.0\Fwengine.dll
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\obj\Debug\net8.0\refint\Fwengine.dll
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\obj\Debug\net8.0\Fwengine.pdb
+C:\Users\kylef\OneDrive\Desktop\Important Folders\ProgrammingLanguageThings\Game Engines\Java Game Engine\Fwengine\assets\programs\Fwengine\obj\Debug\net8.0\ref\Fwengine.dll
