@@ -144,12 +144,6 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
     }
 
     JFrame frame = new JFrame();
-    //JButton changeSceneName = new JButton("Change Scene Name");
-    //JButton SaveAllButton = new JButton("Save All");
-    //JButton ExitProjectButton = new JButton("Exit Project");
-    //JButton BuildAndRunButton = new JButton("Build And Run Project");
-
-    //JPanel sceneWindowPanel = new JPanel();
     SpritePanel sceneWindowPanel = new SpritePanel();
     JPanel propertiesPanel = new JPanel();
     ExplorerPanel explorerPanel;
@@ -336,10 +330,6 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
         frame.setIconImage(image);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.add(changeSceneName);
-        //frame.add(SaveAllButton);
-        //frame.add(ExitProjectButton);
-        //frame.add(BuildAndRunButton);
         frame.add(sceneWindowPanel);
         frame.add(explorerPanel);
         frame.add(propertiesPanel);
@@ -1486,13 +1476,13 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
         try
         {
             Files.delete(filePathFixed);
-            //System.out.println("Successfully deleted file!");
+            logger.error("Successfully deleted file!", 1);
         } catch (NoSuchFileException e) {
-            //System.err.println("No such file/directory exists");
+            logger.error("No such file/directory exists", 1);
         } catch (DirectoryNotEmptyException e) {
-            //System.err.println("Directory is not empty.");
+            logger.error("Directory is not empty.", 1);
         } catch (IOException e) {
-            //System.err.println("Invalid permissions.");
+            logger.error("Invalid permissions.", 1);
         }
     }
     public void BuildProject(String nameOfScene, HashMap<String, Integer> spriteDict, String sceneScripts, String languageToScript)

@@ -18,7 +18,11 @@ If you would like you can preview my Fwengine board at my Milanote! Link To Boar
 
 To use this, you can refer to my Fwengine Documents on my patreon! My Patreon Docs: [Fwengine Docs](https://www.patreon.com/collection/598855?view=expanded)
 
-## Other Files
+## How to build/run
+
+To build this project and run it first you have to build it. Begin by running either the build.bat(for Windows) or build.sh(for Linux/Mac). After building it will auto run it and Fwengine will run!
+
+## Other Important Files
 
 License: [LICENSE.md](LICENSE.md)
 

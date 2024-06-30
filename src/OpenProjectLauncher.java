@@ -18,13 +18,10 @@ import res.__info__;
 import java.net.*;
 
 public class OpenProjectLauncher extends JFrame implements ActionListener{
-
-    // JFrame Object Requires
     static JFrame frame = new JFrame();
     boolean cbPressed = false;
     boolean obPressed = false;
-    
-    // Screen Args
+
     static int screenWidth = 735;
     static int screenHeight = 490;
     String screenTitle = "Fwengine Project Launcher";
@@ -112,12 +109,6 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
         logoPanel.addSpriteAtCenter("assets/images/fwengineLogo.png");
         logoPanel.revalidate();
         logoPanel.repaint();
-
-
-        //JMenuItem preferencesMenu = new JMenuItem("Preferences");
-        //editMenu.add(preferencesMenu);
-
-        //preferencesMenu.addActionListener(e -> OpenPreferences());
         
         frame.setJMenuBar(TopMenu);
 
@@ -365,12 +356,10 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
             int authorStartIndex = jsonContent.indexOf(authorField);
             
             if (nameStartIndex != -1 && authorStartIndex != -1) {
-                // Extract name value
                 int valueStartIndex = jsonContent.indexOf("\"", nameStartIndex + nameField.length()) + 1;
                 int valueEndIndex = jsonContent.indexOf("\"", valueStartIndex);
                 String nameValue = jsonContent.substring(valueStartIndex, valueEndIndex);
                 
-                // Extract author value
                 valueStartIndex = jsonContent.indexOf("\"", authorStartIndex + authorField.length()) + 1;
                 valueEndIndex = jsonContent.indexOf("\"", valueStartIndex);
                 String authorValue = jsonContent.substring(valueStartIndex, valueEndIndex);
@@ -642,60 +631,6 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
             e.printStackTrace();
         }
     }
-
-    //public void OpenPreferences()
-    //{
-    //    PreferencesDialog preferencesBox = new PreferencesDialog(frame);
-    //    preferencesBox.setVisible(true);
-    //}
-
-    //private class PreferencesDialog extends JDialog {
-    //    public PreferencesDialog(Frame owner) {
-    //        super(owner, "Preferences", true);
-//
-    //        setLayout(new BorderLayout());
-    //        setSize(400, 200);
-    //        setLocationRelativeTo(owner);
-//
-    //        setBackground(Color.darkGray);
-//
-    //        // Add preference options here
-    //        JPanel preferencesPanel = new JPanel();
-    //        preferencesPanel.setLayout(new GridLayout(0, 2));
-//
-    //        JLabel CodeELabel = new JLabel("Code Editor: ");
-    //        CodeELabel.setForeground(Color.white);
-    //        preferencesPanel.add(CodeELabel);
-    //        JComboBox<String> codeEComboBox = new JComboBox<>(new String[]{"Notepad", "Notepad++", "Sublime Text", "VSCode"});
-    //        preferencesPanel.add(codeEComboBox);
-    //        if (Files.exists(Paths.get()))
-    //        {
-//
-    //        }
-//
-    //        preferencesPanel.setBackground(Color.darkGray);
-//
-    //        // Add Save and Cancel buttons
-    //        JPanel buttonPanel = new JPanel();
-    //        buttonPanel.setBackground(Color.darkGray);
-    //        JButton saveButton = new JButton("Save");
-    //        JButton cancelButton = new JButton("Cancel");
-//
-    //        buttonPanel.add(saveButton);
-    //        buttonPanel.add(cancelButton);
-//
-    //        saveButton.addActionListener(e -> {
-    //            String selectedEditor = (String) codeEComboBox.getSelectedItem();
-    //            // Implement This: applyCodeEditor(selectedEditor);
-    //            dispose();
-    //        });
-//
-    //        cancelButton.addActionListener(e -> dispose());
-//
-    //        add(preferencesPanel, BorderLayout.CENTER);
-    //        add(buttonPanel, BorderLayout.SOUTH);
-    //    }
-    //}
 
     public void BinaryData(String projectDataFile, File folderName)
     {
