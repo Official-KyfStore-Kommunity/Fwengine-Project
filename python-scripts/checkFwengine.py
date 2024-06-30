@@ -13,3 +13,12 @@ if __name__ == "__main__":
         print("Successfully copied file!")
     except Exception as e:
         print(e)
+
+    source = os.path.join(os.curdir, "Fwengine")
+    destination = os.path.join(scriptsPath, "Fwengine")
+
+    try:
+        shutil.copytree(source, destination)
+        print("Successfully copied folder!")
+    except Exception as e:
+        print(e)

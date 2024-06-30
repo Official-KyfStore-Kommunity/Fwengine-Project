@@ -12,7 +12,7 @@ public class SpritePanel extends JPanel {
     private List<Sprite> sprites = new ArrayList<>();
 
     public SpritePanel() {
-        setBackground(Color.DARK_GRAY);
+        
     }
 
     public void addSprite(String imagePath, int x, int y) {

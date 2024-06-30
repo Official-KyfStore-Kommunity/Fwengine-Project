@@ -16,12 +16,14 @@ If you would like you can preview my Fwengine board at my Milanote! Link To Boar
 
 ## How to use
 
-To use this, you can refer to my Fwengine DOCS on my patreon! My Patreon Docs: [Fwengine Docs](https://www.patreon.com/collection/598855?view=expanded)
+To use this, you can refer to my Fwengine Documents on my patreon! My Patreon Docs: [Fwengine Docs](https://www.patreon.com/collection/598855?view=expanded)
 
 ## Other Files
 
-License File: [LICENSE.md](LICENSE.md)
+License: [LICENSE.md](LICENSE.md)
 
 Requirements: [REQUIREMENTS.md](REQUIREMENTS.md)
 
 Changelog: [CHANGELOG.md](CHANGELOG.md)
+
+Plugins: [PLUGIN-LEARN.md](PLUGIN-LEARN.md)

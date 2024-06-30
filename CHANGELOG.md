@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added Plugins/Plugin Management
 - Initial release of Fwengine on GitHub.
 
 ### Fixed
@@ -23,10 +24,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - No removals in this release.
 
-## [1.3.1] - 2024-24-6
+## [1.3.2] - 2024-24-6
 
 ### Added
 
+- Added Plugins/Plugin Management
 - Initial release of Fwengine on GitHub.
 
 ### Fixed

@@ -9,9 +9,7 @@ import logging
 from time import perf_counter
 
 def setup_logging(log_path):
-    # Clear the log file at the start
     open(log_path, 'w').close()
-    
     logging.basicConfig(
         filename=log_path,
         level=logging.DEBUG,
@@ -161,7 +159,7 @@ root.mainloop()
         f.write(data)
     logging.info("Default scene script written to %s", py_file_path)
 
-def process_scene(scene_name, scene_sprites, scene_scripts, exe_file_path, py_file_path, parent_folder):
+def process_scene(scene_name, scene_sprites, scene_scripts, exe_file_path, py_file_path, parent_folder, scripting_language):
     try:
         if scene_sprites == "{}" and scene_scripts == "None":
             clean_previous_builds(parent_folder)
@@ -171,7 +169,7 @@ def process_scene(scene_name, scene_sprites, scene_scripts, exe_file_path, py_fi
                 clean_previous_builds(parent_folder)
                 build_project_with_data(scene_name, scene_sprites, scene_scripts, parent_folder, py_file_path)
 
-        compile_and_run(py_file_path, exe_file_path, parent_folder)
+        compile_and_run(py_file_path, exe_file_path, parent_folder, scripting_language)
         logging.info("Build succeeded.")
     except Exception as e:
         logging.error("Build failed: %s", e)
@@ -189,7 +187,7 @@ def clean_previous_builds(parent_folder):
     shutil.copyfile(start_destin, end_destin)
     logging.info("Copied %s to %s", start_destin, end_destin)
 
-def compile_and_run(py_file_path, exe_file_path, parent_folder):
+def compile_and_run(py_file_path, exe_file_path, parent_folder, scripting_language):
     start_time = perf_counter()
     compile_into_exe(py_file_path, os.path.join(parent_folder, "bin"))
     delete_file(py_file_path)
@@ -199,32 +197,47 @@ def compile_and_run(py_file_path, exe_file_path, parent_folder):
     end_time = perf_counter()
     total_time = round(end_time - start_time, 2)
     logging.info("Build succeeded in %s seconds.", total_time)
-    find_and_run_scripts(parent_folder)
+    find_and_run_scripts(parent_folder, scripting_language)
 
-def find_and_run_scripts(parent_folder):
+def find_and_run_scripts(parent_folder, scripting_language):
     scripts_dir = os.path.join(parent_folder, "bin", "assets", "scripts")
     
     if not os.path.exists(scripts_dir):
         logging.warning("Scripts directory not found: %s", scripts_dir)
         return
     
-    script_files = glob.glob(os.path.join(scripts_dir, "*.csx"))
-    
-    if not script_files:
-        logging.warning("No scripts found in %s", scripts_dir)
-        return
-    
-    for script_file in script_files:
-        try:
-            # Adjust the command to handle paths with spaces
-            script_cmd = ["cmd", "/c", f'dotnet script {os.path.basename(script_file)}']
-            logging.info("Running script: %s", subprocess.list2cmdline(script_cmd))
-            subprocess.run(script_cmd, cwd=scripts_dir,check=True, shell=True)
-            logging.info("Script '%s' executed successfully.", script_file)
-        except subprocess.CalledProcessError as e:
-            logging.error("Error running script '%s': %s", script_file, e)
-        except Exception as e:
-            logging.error("An error occurred while running script '%s': %s", script_file, e)
+    if scripting_language == "csharp":
+        script_files = glob.glob(os.path.join(scripts_dir, "*.csx"))
+        if not script_files:
+            logging.warning("No scripts found in %s", scripts_dir)
+            return
+        
+        for script_file in script_files:
+            try:
+                script_cmd = ["cmd", "/c", f'dotnet script {os.path.basename(script_file)}']
+                logging.info("Running script: %s", subprocess.list2cmdline(script_cmd))
+                subprocess.run(script_cmd, cwd=scripts_dir, check=True, shell=True)
+                logging.info("Script '%s' executed successfully.", script_file)
+            except subprocess.CalledProcessError as e:
+                logging.error("Error running script '%s': %s", script_file, e)
+            except Exception as e:
+                logging.error("An error occurred while running script '%s': %s", script_file, e)
+    elif scripting_language == "python":
+        script_files = glob.glob(os.path.join(scripts_dir, "*.py"))
+        if not script_files:
+            logging.warning("No scripts found in %s", scripts_dir)
+            return
+        
+        for script_file in script_files:
+            try:
+                script_cmd = ["python", script_file]
+                logging.info("Running script: %s", subprocess.list2cmdline(script_cmd))
+                subprocess.run(script_cmd, cwd=scripts_dir, check=True)
+                logging.info("Script '%s' executed successfully.", script_file)
+            except subprocess.CalledProcessError as e:
+                logging.error("Error running script '%s': %s", script_file, e)
+            except Exception as e:
+                logging.error("An error occurred while running script '%s': %s", script_file, e)
 
 if __name__ == "__main__":
     try:
@@ -235,13 +248,14 @@ if __name__ == "__main__":
         parent_folder = sys.argv[5]
         manipulate_scene_name = sys.argv[6]
         scene_scripts = sys.argv[7]
+        scripting_language = sys.argv[8]
 
         scene_sprites = json.loads(re.sub(r'(\w+):', r'"\1":', scene_sprites))
 
         log_path = os.path.join(parent_folder, "bin", "build.log")
         setup_logging(log_path)
 
-        process_scene(scene_name, scene_sprites, scene_scripts, exe_file_path, py_file_path, parent_folder)
+        process_scene(scene_name, scene_sprites, scene_scripts, exe_file_path, py_file_path, parent_folder, scripting_language)
     
     except IndexError:
         logging.error("Not enough command line arguments provided.")

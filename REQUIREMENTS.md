@@ -6,7 +6,7 @@ Visit My Website At By Pressing The Image Below:
 [![KyfStore](https://developers.kyfstore.com/wp-content/uploads/2024/06/backup-e1717879615993.jpeg)](https://kyfstore.com)
 
 Build Status:
-![BuildStatus](https://img.shields.io/badge/build-beta_version_1.3.0-g)
+![BuildStatus](https://img.shields.io/badge/build-beta_version_1.3.2-g)
 
 ## REQUIREMENTS (REQUIRED)
 

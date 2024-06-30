@@ -39,7 +39,7 @@ public class ExplorerPanel extends JPanel {
                 for (File file : files) {
                     if (file.isFile()) {
                         String fileName = file.getName();
-                        if (fileName.endsWith(".csx") || fileName.endsWith(".fesprite"))
+                        if (fileName.endsWith(".csx") || fileName.endsWith(".fesprite") || fileName.endsWith(".py"))
                         {
                             listModel.addElement(file.getName());
                         }

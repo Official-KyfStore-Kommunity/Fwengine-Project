@@ -39,6 +39,9 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
     JTextField spriteYField = new JTextField(2);
     JButton applySpritePropsButton = new JButton("Apply Properties");
 
+    Path envFile;
+    String scriptingLanguage = "csharp";
+
     public OpenProjectWithSceneArgs() {
         TopMenu.add(fileMenu);
         TopMenu.add(editMenu);
@@ -245,6 +248,18 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
         }
 
         database db = new database();
+
+        envFile = Paths.get(filePath + File.separator + "project.env");
+        HashMap<String, String> envMap = parseEnvFile(envFile.toFile().getAbsolutePath());
+        scriptingLanguage = envMap.get("SL");
+        if (scriptingLanguage.equals("csharp"))
+        {
+            scriptFileExtension = ".csx";
+        } else if (scriptingLanguage.equals("python"))
+        {
+            scriptFileExtension = ".py";
+        }
+        
         String scriptDictStr = db.dbRead(scriptsData);
         scriptDictStr = scriptDictStr.substring(1, scriptDictStr.length() - 1);
 
@@ -454,6 +469,31 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
                 }
             }
         });
+    }
+
+    public static HashMap<String, String> parseEnvFile(String filePath) {
+        HashMap<String, String> envMap = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Ignore comments and empty lines
+                line = line.trim();
+                if (line.startsWith("#") || line.isEmpty()) {
+                    continue;
+                }
+
+                // Split line into key and value
+                String[] keyValue = line.split("=", 2);
+                if (keyValue.length == 2) {
+                    envMap.put(keyValue[0].trim(), keyValue[1].trim());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return envMap;
     }
 
     public String removeLettersFromEnd(Object obj, int letterHash)
@@ -1077,21 +1117,34 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
                     CheckFwengineDLL();
 
                     newScriptFile.createNewFile();
-                    String scriptData = """
-                        #r \"Fwengine.dll\"
-
-                        using Fwengine;
-                                        
-                        public class NewScript {
-                            public static void Main(string[] args)
-                            {
-                                FwengineCore.FEConsole console = new FwengineCore.FEConsole();
-                                console.Println("Hello, World!");
+                    String scriptData = "";
+                    if (scriptingLanguage.equals("csharp"))
+                    {
+                        scriptData = """
+                            #r \"Fwengine.dll\"
+    
+                            using Fwengine;
+                                            
+                            public class NewScript {
+                                public static void Main(string[] args)
+                                {
+                                    FwengineCore.FEConsole console = new FwengineCore.FEConsole();
+                                    console.Println("Hello, World!");
+                                }
                             }
-                        }
-                        NewScript.Main(null);
+                            NewScript.Main(null);
+    
+                            """;
+                    } else if (scriptingLanguage.equals("python")){
+                        scriptData = """
+                                from Fwengine import *
 
-                        """;
+                                if __name__ == \"__main__\":
+                                    console = FwengineCore.FEConsole()
+                                    console.Println(\"Hello, World!\")
+                                """;
+                    }
+                    
                     database db = new database();
                     allScripts.put(removeSuffix(newScriptFile.getName(), scriptFileExtension), newScriptFile.getAbsolutePath());
                     db.dbWrite(String.valueOf(allScripts), Paths.get(scriptsData2));
@@ -1333,7 +1386,7 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
         } else {
             System.out.println("Directory already exists: " + imageFolder);
         }
-        BuildProject(SceneName2, allSprites, SceneScripts2);
+        BuildProject(SceneName2, allSprites, SceneScripts2, scriptingLanguage);
     }
 
     @Override
@@ -1442,12 +1495,12 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
             //System.err.println("Invalid permissions.");
         }
     }
-    public void BuildProject(String nameOfScene, HashMap<String, Integer> spriteDict, String sceneScripts)
+    public void BuildProject(String nameOfScene, HashMap<String, Integer> spriteDict, String sceneScripts, String languageToScript)
     {
         CheckFwengineDLL();
         try
         {
-            ProcessBuilder processBuilder = new ProcessBuilder("python", "python-scripts/buildProject.py", nameOfScene, convertToJson(spriteDict), filePath2 + File.separator + "bin" + File.separator + manipulateString(nameOfScene) + ".exe", filePath2 + File.separator + "bin" + File.separator + manipulateString(nameOfScene) + ".py", filePath2, manipulateString(nameOfScene), sceneScripts);
+            ProcessBuilder processBuilder = new ProcessBuilder("python", "python-scripts/buildProject.py", nameOfScene, convertToJson(spriteDict), filePath2 + File.separator + "bin" + File.separator + manipulateString(nameOfScene) + ".exe", filePath2 + File.separator + "bin" + File.separator + manipulateString(nameOfScene) + ".py", filePath2, manipulateString(nameOfScene), sceneScripts, languageToScript);
 
             // Redirect error stream to capture error messages
             processBuilder.redirectErrorStream(true);
@@ -1549,31 +1602,5 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
         int secondInt = Integer.parseInt(manipulatePosition.substring(firstLength + 2));
 
         return new int[]{firstInt, secondInt};
-    }
-    public class Log {
-        public void print(String value)
-        {
-            System.out.println(value);
-        }
-        public void print(Object value)
-        {
-            System.out.println(String.valueOf(value));
-        }
-        public void debug(String value)
-        {
-            System.out.println("[DEBUG INFO]: " + value);
-        }
-        public void debug(Object value)
-        {
-            System.out.println("[DEBUG INFO]: " + String.valueOf(value));
-        }
-        public void error(String value, Integer errorCode)
-        {
-            System.out.println("[ERROR] " + value + " exited with code=" + errorCode);
-        }
-        public void error(Object value, Integer errorCode)
-        {
-            System.out.println("[ERROR] " + String.valueOf(value) + " exited with code=" + errorCode);
-        }
     }
 }
