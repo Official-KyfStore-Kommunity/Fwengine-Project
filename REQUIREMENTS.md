@@ -22,7 +22,7 @@ The software included in this package requires:
 This program can use multiple different scripting programs including; Notepad (built into windows, default), Notepad++, Sublime Text, or VSCode (the app with the blue logo, not the magenta one)
 To change this option, in your project, choose; edit, preferences; and choose the one you want to use as your code editor of choice, you may change this option as well by going into the your project's directory, going in the bin folder (if it exists), and go into the options.txt folder, after pressing save on the preferences window and change codeEditor to either:
 
-1. Notepad       [Already Built In To Windows But Download Anyways](https://apps.microsoft.com/detail/9msmlrh6lzf3?hl=en-US&gl=US)
+1. Notepad       [Microsoft Download](https://apps.microsoft.com/detail/9msmlrh6lzf3?hl=en-US&gl=US)
 2. Notepad++     [Download](https://notepad-plus-plus.org/downloads/)
 3. SublimeText   [Download](https://www.sublimetext.com/download)
 4. VSCode        [Download](https://code.visualstudio.com)

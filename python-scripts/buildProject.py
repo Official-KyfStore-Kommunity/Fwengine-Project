@@ -6,6 +6,7 @@ import subprocess
 import os
 import glob
 import logging
+import dotenv
 from time import perf_counter
 
 def setup_logging(log_path):
@@ -60,6 +61,12 @@ def delete_folder(folder_path):
         logging.error("Error deleting folder '%s': %s", folder_path, e)
 
 def build_project_with_data(name_of_scene, scene_sprites, scripts_in_scene, parent_folder, py_file_path):
+    spriteMainName = parent_folder + "/bin/assets/images/defaultSprite.png"
+    envFilePath = os.path.join(parent_folder, "project.env")
+    dotenv.load_dotenv(dotenv_path=envFilePath)
+    spriteImage = os.getenv("SI")
+    spriteMainName = spriteImage
+        
     data = f"""
 import tkinter as tk
 
@@ -80,7 +87,7 @@ def create_sprites():
     root.minsize(width=675, height=225)
     root.maxsize(width=675, height=225)
 
-    default_sprite_path = r"{parent_folder}/bin/assets/images/defaultSprite.png"
+    default_sprite_path = r"{spriteMainName}"
     sprite_image = tk.PhotoImage(file=default_sprite_path)
 
     sprite_positions = {scene_sprites}

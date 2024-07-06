@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fwengine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d828396e277bd5c61d0f12efdec86e0540731a95")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e32a9a597a63646ee23b383cecf82a26672dfc5b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fwengine")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fwengine")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

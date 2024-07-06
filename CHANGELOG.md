@@ -9,36 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added Plugins/Plugin Management
-- Initial release of Fwengine on GitHub.
-
-### Fixed
-
-- No fixes in this release.
+- Plugins/Plugin Management feature
 
 ### Changed
 
-- No changes in this release.
+- Updated Creating Project To Get Rid Of Any Extra Files, Examples: Bin Directory, Project.env, ect.
+- No changes.
 
 ### Removed
 
-- No removals in this release.
+- No removals.
 
-## [1.3.2] - 2024-24-6
+## [1.3.2] - 2024-06-24
 
 ### Added
 
-- Added Plugins/Plugin Management
 - Initial release of Fwengine on GitHub.
-
-### Fixed
-
-- No fixes in this release.
 
 ### Changed
 
-- No changes in this release.
+- No changes.
 
 ### Removed
 
-- No removals in this release.
+- No removals.

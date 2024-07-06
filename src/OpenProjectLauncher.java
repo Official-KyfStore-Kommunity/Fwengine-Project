@@ -7,6 +7,7 @@ import java.nio.file.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +27,14 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
     static int screenHeight = 490;
     String screenTitle = "Fwengine Project Launcher";
 
-    static String createProjectEnvFile = """
-            SL=csharp
-            """;;
+    static String envSL = "csharp";
+    static String envSI = "assets/images/defaultSprite1.png";
+
+    static String createProjectEnvFile = String.format("""
+            SL=%s
+            SI=%s
+            """, envSL, envSI);
+    
     
     // Constants
 
@@ -417,7 +423,7 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
                     setFrameBackgroundTheme(value);
                 } else if (value.equals("yellow")) {
                     setFrameBackgroundTheme(value);
-                } else if (value.equals("yellow")) {
+                } else if (value.equals("green")) {
                     setFrameBackgroundTheme(value);
                 } else if (value.equals("orange")) {
                     setFrameBackgroundTheme(value);
@@ -481,7 +487,7 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
                 {
                     HashMap<String, String> fwengineKeys = new HashMap<>();
                     fwengineKeys.put("scripting-language", "csharp");
-                    fwengineKeys.put("", "");
+                    fwengineKeys.put("sprite-img", "assets/images/defaultSprite1.png");
 
                     File propertiesJson = new File(plugin, "attributes\\project.json");
                     jsonContent = db.dbRead(Paths.get(propertiesJson.toString()));
@@ -499,21 +505,32 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
                         }
                     }
                     String newScriptingLanguage = fwengineKeys.get("scripting-language");
+                    String newSpriteImage = fwengineKeys.get("sprite-img");
                     if (!newScriptingLanguage.equals("csharp"))
                     {
                         if (!newScriptingLanguage.equals(""))
                         {
                             if (newScriptingLanguage.equals("python"))
                             {
-                                createProjectEnvFile = """
-                                        SL=python
-                                        """;
+                                envSL = "python";
+                                createProjectEnvFile = String.format("""
+                                        SL=%s
+                                        SI=%s
+                                        """, envSL, envSI);
                             } else {
                                 JOptionPane.showMessageDialog(null, String.format("Sorry, but the coding language: \"%s\" is not supported for Fwengine.", fwengineKeys.get("scripting-language")), "Scripting Language Error", JOptionPane.ERROR_MESSAGE);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, String.format("Sorry, but the coding language may not be an empty string.", fwengineKeys.get("scripting-language")), "Scripting Language Error", JOptionPane.ERROR_MESSAGE);
                         }
+                    }
+                    if (Files.exists(Paths.get(newSpriteImage)))
+                    {
+                        envSI = newSpriteImage;
+                        createProjectEnvFile = String.format("""
+                                SL=%s
+                                SI=%s
+                                """, envSL, envSI);
                     }
                 }
             }
@@ -561,6 +578,10 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
             frame.getContentPane().repaint();
         } else if (theme.equals("yellow")){
             frame.getContentPane().setBackground(Color.yellow);
+            frame.getContentPane().revalidate();
+            frame.getContentPane().repaint();
+        } else if (theme.equals("green")){
+            frame.getContentPane().setBackground(Color.green);
             frame.getContentPane().revalidate();
             frame.getContentPane().repaint();
         } else if (theme.equals("orange")){
@@ -740,6 +761,9 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
                 Path projectPath = Paths.get(file.toString());
                 db.dbWrite(DefaultData, projectPath);
                 BinaryData(projectName, folderName);
+                Path ParentFolder = file.toPath().getParent();
+                Path binDirectory = Paths.get(ParentFolder.toString() + File.separator + "bin");
+                boolean hasDeleted = deleteDirectory(binDirectory.toFile());
                 OpenProject(projectName, folderName);
                 hasCreatedFile = true;
                 //DeleteFile(projectName);
@@ -749,6 +773,20 @@ public class OpenProjectLauncher extends JFrame implements ActionListener{
                 projectName = "newproject" + index + ".fedb";
                 file = new File(folderName.getAbsolutePath() + File.separator + projectName);
             }
+        }
+    }
+
+    public static void deleteDirectoryRecursively(Path path) throws IOException {
+        if (Files.exists(path)) {
+            Files.walk(path)
+                 .sorted(Comparator.reverseOrder())
+                 .forEach(p -> {
+                     try {
+                         Files.delete(p);
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                 });
         }
     }
 

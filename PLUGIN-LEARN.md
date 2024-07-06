@@ -7,11 +7,12 @@ Creating a plugin isn't really hard to do. All you need is to know a little abou
 1. Make the theme "dark-red"
 2. Change scripting language to "python"
 
-The full capabilities of plugins can do these three things:
+The full capabilities of plugins can do these four things:
 
 1. Change Theme
 2. Change Scripting Language
 3. Change Logo Image
+4. Change Sprite Image
 
 ## Creating The Plugin
 

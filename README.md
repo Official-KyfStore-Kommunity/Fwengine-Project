@@ -20,7 +20,7 @@ To use this, you can refer to my Fwengine Documents on my patreon! My Patreon Do
 
 ## How to build/run
 
-To build this project and run it first you have to build it. Begin by running either the build.bat(for Windows) or build.sh(for Linux/Mac). After building it will auto run it and Fwengine will run!
+To build this project and run it first you have to build it. Begin by running either the build.bat (made for Windows) or build.sh (made for Linux/Mac). After building it will auto run it and Fwengine will run!
 
 ## Other Important Files
 

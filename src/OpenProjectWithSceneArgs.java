@@ -41,6 +41,7 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
 
     Path envFile;
     String scriptingLanguage = "csharp";
+    String spriteImg = "assets/images/defaultSprite1.png";
 
     public OpenProjectWithSceneArgs() {
         TopMenu.add(fileMenu);
@@ -246,6 +247,7 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
         envFile = Paths.get(filePath + File.separator + "project.env");
         HashMap<String, String> envMap = parseEnvFile(envFile.toFile().getAbsolutePath());
         scriptingLanguage = envMap.get("SL");
+        spriteImg = envMap.get("SI");
         if (scriptingLanguage.equals("csharp"))
         {
             scriptFileExtension = ".csx";
@@ -395,7 +397,7 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
         {
             Integer spritePos = spritesMap.get(key);
             int[] position = demanipulatePosition(spritePos.toString());
-            sceneWindowPanel.addSprite("assets/images/defaultSprite1.png", position[0], position[1]);
+            sceneWindowPanel.addSprite(spriteImg, position[0], position[1]);
         }
 
         JPopupMenu propertyPopup = new JPopupMenu();
@@ -805,7 +807,7 @@ public class OpenProjectWithSceneArgs extends JFrame implements ActionListener {
 
     private void addDefaultSprite()
     {
-        String spritePath = "assets/images/defaultSprite1.png";
+        String spritePath = spriteImg;
         sceneWindowPanel.addSpriteAtCenter(spritePath);
         int spriteIndex = 1;
         boolean hasCreatedFile = true;
